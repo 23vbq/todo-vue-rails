@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  status: 1
+  group: one
+  priority: 1
+  date_creation: 2024-08-19
+  date_planning: 2024-08-19
+  title: MyString
+  description: MyString
+
+two:
+  status: 1
+  group: two
+  priority: 1
+  date_creation: 2024-08-19
+  date_planning: 2024-08-19
+  title: MyString
+  description: MyString

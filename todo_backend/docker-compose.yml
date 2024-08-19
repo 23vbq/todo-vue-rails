@@ -20,9 +20,6 @@ services:
     platform: linux/amd64
     environment:
       MYSQL_ROOT_PASSWORD: rootpasswd
-      MYSQL_DATABASE: todoapp
-      MYSQL_USER: appuser
-      MYSQL_PASSWORD: apppass
     volumes:
       - db_data:/var/lib/mysql
     ports:

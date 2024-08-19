@@ -20,6 +20,8 @@ default: &default
 development:
   <<: *default
   database: todo_backend_development
+  username: devuser
+  password: devpass
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -27,6 +29,8 @@ development:
 test:
   <<: *default
   database: todo_backend_test
+  username: testuser
+  password: testpass
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is

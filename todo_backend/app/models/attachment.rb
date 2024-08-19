@@ -1,3 +1,3 @@
 class Attachment < ApplicationRecord
-  belongs_to :todo
+  belongs_to :to_dos
 end

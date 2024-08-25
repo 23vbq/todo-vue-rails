@@ -1,0 +1,5 @@
+{
+    "rubyTestExplorer.rspecCommand": "docker exec 7c360c83b75b bundle exec rspec",
+    "rubyTestExplorer.rspecDirectory": "./spec/",
+    "rubyTestExplorer.testFramework": "rspec"
+}

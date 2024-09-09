@@ -16,10 +16,9 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.3.4
-          bundler-cache: true
 
       - name: Scan for common Rails security vulnerabilities using static analysis
-        run: /usr/bin/brakeman --no-pager
+        run: bin/brakeman --no-pager
 
   scan_js:
     runs-on: ubuntu-latest

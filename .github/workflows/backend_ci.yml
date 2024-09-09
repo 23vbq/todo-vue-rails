@@ -98,6 +98,10 @@ jobs:
           ruby-version: 3.3.4
           bundler-cache: true
 
+      - name: Change permissions
+        working-directory: ./todo_backend
+        run: chmod +x bin/bundle
+
       - name: Run tests
         working-directory: ./todo_backend
         env:

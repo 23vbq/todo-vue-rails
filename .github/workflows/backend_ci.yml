@@ -15,12 +15,12 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
+          working-directory: ./todo_backend
           ruby-version: 3.3.4
-          
-      - name: Install
-        run: bundle install
-        
+          bundler-cache: true
+
       - name: Scan for common Rails security vulnerabilities using static analysis
+        working-directory: ./todo_backend
         run: bin/brakeman --no-pager
 
   scan_js:

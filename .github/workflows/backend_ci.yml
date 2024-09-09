@@ -60,7 +60,7 @@ jobs:
 
       - name: Change permissions
         working-directory: ./todo_backend
-        run: chmod +x bin/brakeman
+        run: chmod +x bin/rubocop
 
       - name: Lint code for consistent style
         working-directory: ./todo_backend

@@ -100,7 +100,9 @@ jobs:
 
       - name: Change permissions
         working-directory: ./todo_backend
-        run: chmod +x bin/bundle
+        run: |
+          chmod +x bin/rails
+          chmod +x bin/bundle
         
       - name: Create database
         working-directory: ./todo_backend

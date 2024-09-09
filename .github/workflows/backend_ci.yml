@@ -33,10 +33,12 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
+          working-directory: ./todo_backend
           ruby-version: 3.3.4
           bundler-cache: true
 
       - name: Scan for security vulnerabilities in JavaScript dependencies
+        working-directory: ./todo_backend
         run: /bin/importmap audit
 
   lint:
@@ -48,10 +50,12 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
+          working-directory: ./todo_backend
           ruby-version: 3.3.4
           bundler-cache: true
 
       - name: Lint code for consistent style
+        working-directory: ./todo_backend
         run: /bin/rubocop -f github
 
   test:
@@ -74,6 +78,7 @@ jobs:
 
     steps:
       - name: Install packages
+        working-directory: ./todo_backend
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y google-chrome-stable curl default-mysql-client libjemalloc2 libvips
 
       - name: Checkout code
@@ -82,10 +87,12 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
+          working-directory: ./todo_backend
           ruby-version: 3.3.4
           bundler-cache: true
 
       - name: Run tests
+        working-directory: ./todo_backend
         env:
           RAILS_ENV: test
           DATABASE_URL: mysql2://127.0.0.1:3306

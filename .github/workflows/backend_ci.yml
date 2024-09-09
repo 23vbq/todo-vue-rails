@@ -58,6 +58,10 @@ jobs:
           ruby-version: 3.3.4
           bundler-cache: true
 
+      - name: Change permissions
+        working-directory: ./todo_backend
+        run: chmod +x bin/brakeman
+
       - name: Lint code for consistent style
         working-directory: ./todo_backend
         run: sudo bin/rubocop -f github
@@ -100,7 +104,7 @@ jobs:
           RAILS_ENV: test
           DATABASE_URL: mysql2://127.0.0.1:3306
           # REDIS_URL: redis://localhost:6379/0
-        run: sudo /usr/bin/bundle exec rspec
+        run: /usr/bin/bundle exec rspec
 
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v4

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Attachment, type: :model do
     # Associations tests
-     describe 'associations' do
+    describe 'associations' do
         it { should belong_to(:to_do) }
     end
     # Validation tests

@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe ToDo, type: :model do
     # Associations tests
     describe 'associations' do
-        it { should have_many(:attachments) } 
-        it { should belong_to(:group) } 
+        it { should have_many(:attachments) }
+        it { should belong_to(:group) }
     end
     # Validation tests
     describe 'validations' do

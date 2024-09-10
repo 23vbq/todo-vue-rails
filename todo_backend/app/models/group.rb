@@ -3,5 +3,5 @@ class Group < ApplicationRecord
 
   validates :name, presence: true
   validates :name, uniqueness: { case_sensitive: true }
-  validates :name, length: {maximum: 20}
+  validates :name, length: { maximum: 20 }
 end

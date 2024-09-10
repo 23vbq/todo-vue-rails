@@ -115,7 +115,7 @@ jobs:
         working-directory: ./todo_backend
         env:
           RAILS_ENV: test
-          DATABASE_URL: mysql2://127.0.0.1:3306
+          DATABASE_ADDR: '127.0.0.1'
           # REDIS_URL: redis://localhost:6379/0
         run: bin/bundle exec rspec
 

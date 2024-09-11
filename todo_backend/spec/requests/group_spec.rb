@@ -36,7 +36,7 @@ RSpec.describe "Groups", type: :request do
         expect(response).to have_http_status(201)
       end
     end
-    
+
     context "request is invalid" do
       before { post '/groups', params: {} }
 

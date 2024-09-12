@@ -8,11 +8,11 @@ RSpec.describe "Groups", type: :request do
   let(:group_id) { groups.first.id }
 
   # Get list of groups
-  describe "GET /groups" do
-    before { get '/groups' }
+  describe "GET /group" do
+    before { get '/group' }
 
     it 'returns groups' do
-      expect(json).not_to_be_empty
+      expect(json).not_to be_empty
       expect(json.size).to eq(10)
     end
 
@@ -22,11 +22,11 @@ RSpec.describe "Groups", type: :request do
   end
 
   # Create new group
-  describe "POST /groups" do
+  describe "POST /group" do
     let(:valid_attributes) { { name: 'Group' } }
 
     context "request is valid" do
-      before { post '/groups', params: valid_attributes }
+      before { post '/group', params: valid_attributes }
 
       it "creates a group" do
         expect(json['name']).to eq('Group')
@@ -38,7 +38,7 @@ RSpec.describe "Groups", type: :request do
     end
 
     context "request is invalid" do
-      before { post '/groups', params: {} }
+      before { post '/group', params: {} }
 
       it "returns status code 422" do
         expect(response).to have_http_status(422)
@@ -53,11 +53,11 @@ RSpec.describe "Groups", type: :request do
   end
 
   # Update existing group
-  describe "PUT /groups/:id" do
+  describe "PUT /group/:id" do
     let(:valid_attributes) { { name: 'Tasks' } }
 
     context "record exists" do
-      before { put '/groups/#{group_id}', params: valid_attributes }
+      before { put '/group/#{group_id}', params: valid_attributes }
 
       it "updates record" do
         expect(response.body).to be_empty
@@ -70,8 +70,8 @@ RSpec.describe "Groups", type: :request do
   end
 
   # Delete group
-  describe "DELETE /groups/:id" do
-    before { delete '/groups/#{group_id}' }
+  describe "DELETE /group/:id" do
+    before { delete '/group/#{group_id}' }
 
     it "returns status code 204" do
       expect(response).to have_http_status(204)

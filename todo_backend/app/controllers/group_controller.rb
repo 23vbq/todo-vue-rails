@@ -11,7 +11,7 @@ before_action :set_group, only: [:update, :destroy]
   # POST /group
   def create
     @group = Group.create!(group_params)
-    json_response(@group,:created)
+    json_response(@group, :created)
   end
 
   # PUT /group/:id

@@ -1,6 +1,6 @@
 class GroupController < ApplicationController
 # skip_before_action :verify_authenticity_token
-before_action :set_group, only: [:update, :destroy]
+before_action :set_group, only: [ :update, :destroy ]
 
   # GET /group
   def index
@@ -19,7 +19,7 @@ before_action :set_group, only: [:update, :destroy]
     @group.update(group_params)
     head :no_content
   end
-  
+
   # DELETE /group/:id
   def destroy
     @group.destroy

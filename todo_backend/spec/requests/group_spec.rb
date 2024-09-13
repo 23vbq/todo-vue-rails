@@ -5,7 +5,7 @@ RSpec.describe "Groups", type: :request do
   #   pending "add some examples (or delete) #{__FILE__}"
   # end
   let!(:groups) { create_list(:group, 10) }
-  let(:group_id) { groups.first.id }
+  let(:group_id) { groups.first.id.to_s }
 
   # Get list of groups
   describe "GET /group" do
@@ -57,7 +57,7 @@ RSpec.describe "Groups", type: :request do
     let(:valid_attributes) { { name: 'Tasks' } }
 
     context "record exists" do
-      before { put '/group/#{group_id}', params: valid_attributes }
+      before { put '/group/' + group_id, params: valid_attributes }
 
       it "updates record" do
         expect(response.body).to be_empty
@@ -71,7 +71,7 @@ RSpec.describe "Groups", type: :request do
 
   # Delete group
   describe "DELETE /group/:id" do
-    before { delete '/group/#{group_id}' }
+    before { delete '/group/' + group_id }
 
     it "returns status code 204" do
       expect(response).to have_http_status(204)

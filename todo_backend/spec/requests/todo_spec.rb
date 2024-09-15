@@ -1,26 +1,28 @@
 require 'rails_helper'
 
 RSpec.describe "Todos", type: :request do
-  let!(:todos) { create_list(:todo, 10) }
+  Group.create(name: "Default")
+  let!(:todos) { create_list(:to_do, 10) }
   let(:todo_id) { todos.first.id.to_s }
 
   # Create new todo
   describe "POST /todo" do
     let(:valid_attributes) {
       { 
-        group_id: Faker::Number.between(from: 0, to: 10),
+        group_id: 1,
         priority: Faker::Number.between(from: 1, to: 5),
-        date_planning: Faker::TIme.between(from: DateTime.now - 10, to: DateTime.now + 10),
+        date_planning: Faker::Time.between(from: DateTime.now - 10, to: DateTime.now + 10),
         title: Faker::Lorem.sentence(word_count: 1, random_words_to_add: 4),
         description: Faker::Lorem.paragraph(sentence_count: 2, random_sentences_to_add: 4)
       }
     }
 
-    context "request is valid" do
+    context "request is valid =>" do
       let(:todos_count) { ToDo.count }
       before { post '/todo', params: valid_attributes }
 
       it "created has default values" do
+        p json
         expect(json['status']).to eq(0)
         expect(json['date_creation']).to eq(DateTime.now)
       end
@@ -42,7 +44,7 @@ RSpec.describe "Todos", type: :request do
       end
     end
 
-    context "request is invalid" do
+    context "request is invalid =>" do
       let(:todos_count) { ToDo.count }
       before { post '/todo', params: {} }
 
@@ -60,9 +62,9 @@ RSpec.describe "Todos", type: :request do
   describe "PUT /todo/:id" do
     let(:valid_attributes) {
       { 
-        group_id: Faker::Number.between(from: 0, to: 10),
+        group_id: Faker::Number.between(from: 1, to: 10),
         priority: Faker::Number.between(from: 1, to: 5),
-        date_planning: Faker::TIme.between(from: DateTime.now - 10, to: DateTime.now + 10),
+        date_planning: Faker::Time.between(from: DateTime.now - 10, to: DateTime.now + 10),
         title: Faker::Lorem.sentence(word_count: 1, random_words_to_add: 4),
         description: Faker::Lorem.paragraph(sentence_count: 2, random_sentences_to_add: 4)
       }

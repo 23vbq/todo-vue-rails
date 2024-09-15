@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "Todos", type: :request do
-  Group.create(name: "Default")
+  let(:group_id) { create(:group).id }
+
   let!(:todos) { create_list(:to_do, 10) }
   let(:todo_id) { todos.first.id.to_s }
 
@@ -9,7 +10,7 @@ RSpec.describe "Todos", type: :request do
   describe "POST /todo" do
     let(:valid_attributes) {
       { 
-        group_id: 1,
+        group_id: group_id,
         priority: Faker::Number.between(from: 1, to: 5),
         date_planning: Faker::Time.between(from: DateTime.now - 10, to: DateTime.now + 10),
         title: Faker::Lorem.sentence(word_count: 1, random_words_to_add: 4),
@@ -22,17 +23,16 @@ RSpec.describe "Todos", type: :request do
       before { post '/todo', params: valid_attributes }
 
       it "created has default values" do
-        p json
         expect(json['status']).to eq(0)
         expect(json['date_creation']).to eq(DateTime.now)
       end
 
       it "created has user defined values" do
-        expect(json['group_id']).to eq(valid_attributes['group_id'])
-        expect(json['priority']).to eq(valid_attributes['priority'])
-        expect(json['date_planning']).to eq(valid_attributes['date_planning'])
-        expect(json['title']).to eq(valid_attributes['title'])
-        expect(json['description']).to eq(valid_attributes['description'])
+        expect(json['group_id']).to eq(valid_attributes[:group_id])
+        expect(json['priority']).to eq(valid_attributes[:priority])
+        expect(json['date_planning']).to eq(valid_attributes[:date_planning])
+        expect(json['title']).to eq(valid_attributes[:title])
+        expect(json['description']).to eq(valid_attributes[:description])
       end
 
       it "changes count of todos" do

@@ -41,6 +41,19 @@ RSpec.describe "Todos", type: :request do
         expect(response).to have_http_status(201)
       end
     end
+
+    context "request is invalid" do
+      let(:todos_count) { ToDo.count }
+      before { post '/todo', params: {} }
+
+      it "same count of todos" do
+        expect(ToDo.count).to eq(todos_count)
+      end
+
+      it "returns status code 422" do
+        expect(response).to have_http_status(422)
+      end
+    end
   end
 
   # Update existing todo

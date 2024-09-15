@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Todos", type: :request do
   let!(:todos) { create_list(:todo, 10) }
+  let(:todo_id) { todos.first.id.to_s }
 
   # Create new todo
   describe "POST /todo" do
@@ -34,6 +35,20 @@ RSpec.describe "Todos", type: :request do
       it "returns status code 201" do
         expect(response).to have_http_status(201)
       end
+    end
+  end
+
+  # Delete todo
+  describe "DELETE /todo/:id" do
+    let(:todos_count) { ToDo.count }
+    before { delete '/todo/' + todo_id }
+
+    it "returns status code 204" do
+      expect(response).to have_http_status 204
+    end
+
+    it "changes count of todos" do
+      expect(ToDo.count).to eq(todos_count - 1)
     end
   end
 end

@@ -19,9 +19,9 @@ RSpec.describe "Todos", type: :request do
     }
 
     context "request is valid =>" do
-      before { 
+      before {
         @todos_count = ToDo.count
-        post '/todo', params: valid_attributes 
+        post '/todo', params: valid_attributes
       }
 
       it "created has default values" do

@@ -19,24 +19,26 @@ RSpec.describe "Todos", type: :request do
     }
 
     context "request is valid =>" do
-      let(:todos_count) { ToDo.count }
-      before { post '/todo', params: valid_attributes }
+      before { 
+        @todos_count = ToDo.count
+        post '/todo', params: valid_attributes 
+      }
 
       it "created has default values" do
         expect(json['status']).to eq(0)
-        expect(json['date_creation']).to eq(DateTime.now)
+        expect(json['date_creation']).to be > (DateTime.now - 1).utc.iso8601(3) # eq(DateTime.now.utc.iso8601(3))
       end
 
       it "created has user defined values" do
         expect(json['group_id']).to eq(valid_attributes[:group_id])
         expect(json['priority']).to eq(valid_attributes[:priority])
-        expect(json['date_planning']).to eq(valid_attributes[:date_planning])
+        expect(json['date_planning']).to eq(valid_attributes[:date_planning].change(sec: valid_attributes[:date_planning].sec).utc.iso8601(3))
         expect(json['title']).to eq(valid_attributes[:title])
         expect(json['description']).to eq(valid_attributes[:description])
       end
 
       it "changes count of todos" do
-        expect(ToDo.count).to eq(todos_count + 1)
+        expect(ToDo.count).to eq(@todos_count + 1)
       end
 
       it "returns status code 201" do

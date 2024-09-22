@@ -63,8 +63,9 @@ RSpec.describe "Todos", type: :request do
   # Update existing todo
   describe "PUT /todo/:id" do
     let(:valid_attributes) {
-      { 
-        group_id: Faker::Number.between(from: 1, to: 10),
+      {
+        status: Faker::Number.between(from: 0, to: 3),
+        group_id: group_id,
         priority: Faker::Number.between(from: 1, to: 5),
         date_planning: Faker::Time.between(from: DateTime.now - 10, to: DateTime.now + 10),
         title: Faker::Lorem.sentence(word_count: 1, random_words_to_add: 4),
@@ -73,15 +74,17 @@ RSpec.describe "Todos", type: :request do
     }
 
     context "record exists" do
-      let(:todos_count) { ToDo.count }
-      before { put '/todo/' + todo_id, params: valid_attributes }
+      before {
+        @todos_count = ToDo.count
+        put '/todo/' + todo_id, params: valid_attributes
+      }
 
       it "updates record" do
         expect(response.body).to be_empty
       end
 
       it "same count of todos" do
-        expect(ToDo.count).to eq(todos_count)
+        expect(ToDo.count).to eq(@todos_count)
       end
 
       it "returns status code 204" do

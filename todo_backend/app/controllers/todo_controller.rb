@@ -3,7 +3,7 @@ before_action :set_todo, only: [ :update, :destroy ]
 
   # GET /todo?group_id
   def index
-    @todos = ToDo.where(:group_id => todo_params_index[:group_id]).select(:id, :title, :priority, :date_planning)
+    @todos = ToDo.where(group_id: todo_params_index[:group_id]).select(:id, :title, :priority, :date_planning)
     json_response(@todos)
   end
 

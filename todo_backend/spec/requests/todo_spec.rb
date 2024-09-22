@@ -95,15 +95,17 @@ RSpec.describe "Todos", type: :request do
 
   # Delete todo
   describe "DELETE /todo/:id" do
-    let(:todos_count) { ToDo.count }
-    before { delete '/todo/' + todo_id }
+    before {
+      @todos_count = ToDo.count
+      delete '/todo/' + todo_id
+    }
 
     it "returns status code 204" do
       expect(response).to have_http_status 204
     end
 
     it "changes count of todos" do
-      expect(ToDo.count).to eq(todos_count - 1)
+      expect(ToDo.count).to eq(@todos_count - 1)
     end
   end
 end

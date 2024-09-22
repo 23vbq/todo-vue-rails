@@ -86,8 +86,9 @@ RSpec.configure do |config|
     DatabaseCleaner.clean_with(:truncation)
     DatabaseCleaner.strategy = :transaction
   end
-
+  
   config.around(:each) do |example|
+    Faker::UniqueGenerator.clear
     DatabaseCleaner.cleaning do
       example.run
     end

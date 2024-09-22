@@ -6,7 +6,7 @@ before_action :set_todo, only: [ :update, :destroy ]
     @todos = ToDo.all
     json_response(@todos)
   end
-  
+
   # POST /todo
   def create
     @todo = ToDo.create!(todo_params_create) # status: 0, date_creation: DateTime.now

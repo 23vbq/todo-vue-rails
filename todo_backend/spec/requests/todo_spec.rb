@@ -9,7 +9,7 @@ RSpec.describe "Todos", type: :request do
   # Create new todo
   describe "POST /todo" do
     let(:valid_attributes) {
-      { 
+      {
         group_id: group_id,
         priority: Faker::Number.between(from: 1, to: 5),
         date_planning: Faker::Time.between(from: DateTime.now - 10, to: DateTime.now + 10),

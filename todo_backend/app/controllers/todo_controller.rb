@@ -1,9 +1,9 @@
 class TodoController < ApplicationController
 before_action :set_todo, only: [ :update, :destroy ]
 
-  # test index
+  # GET /todo?group_id
   def index
-    @todos = ToDo.all
+    @todos = ToDo.where(:group_id => todo_params_index[:group_id]).select(:id, :title, :priority, :date_planning)
     json_response(@todos)
   end
 
@@ -26,6 +26,10 @@ before_action :set_todo, only: [ :update, :destroy ]
 
   # Helpers
 
+  def todo_params_index
+    params
+      .permit(:group_id)
+  end
   def todo_params_create
     params
       .permit(:group_id, :priority, :date_planning, :title, :description)

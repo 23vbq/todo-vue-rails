@@ -104,6 +104,171 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "todo",
+			"item": [
+				{
+					"name": "List ToDo's",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ADDR}}/todo?group_id=",
+							"host": [
+								"{{ADDR}}"
+							],
+							"path": [
+								"todo"
+							],
+							"query": [
+								{
+									"key": "group_id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get ToDo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ADDR}}/todo/:id",
+							"host": [
+								"{{ADDR}}"
+							],
+							"path": [
+								"todo",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create ToDo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{ADDR}}/todo?group_id&priority&date_planning&title&description",
+							"host": [
+								"{{ADDR}}"
+							],
+							"path": [
+								"todo"
+							],
+							"query": [
+								{
+									"key": "group_id",
+									"value": null
+								},
+								{
+									"key": "priority",
+									"value": null
+								},
+								{
+									"key": "date_planning",
+									"value": null
+								},
+								{
+									"key": "title",
+									"value": null
+								},
+								{
+									"key": "description",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update ToDo",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{ADDR}}/todo/:id?status=&group_id=&priority=&date_planning=&title=&description=",
+							"host": [
+								"{{ADDR}}"
+							],
+							"path": [
+								"todo",
+								":id"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": ""
+								},
+								{
+									"key": "group_id",
+									"value": ""
+								},
+								{
+									"key": "priority",
+									"value": ""
+								},
+								{
+									"key": "date_planning",
+									"value": ""
+								},
+								{
+									"key": "title",
+									"value": ""
+								},
+								{
+									"key": "description",
+									"value": ""
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete ToDo",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{ADDR}}/todo/:id",
+							"host": [
+								"{{ADDR}}"
+							],
+							"path": [
+								"todo",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [

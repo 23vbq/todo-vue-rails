@@ -8,7 +8,6 @@ RSpec.describe "Todos", type: :request do
 
   # Get list of todos
   describe "GET /todo?group_id" do
-
     it "returns properly count each group" do
       @groups = ToDo.group(:group_id).count
       @groups.each do |key, value|
@@ -22,7 +21,6 @@ RSpec.describe "Todos", type: :request do
 
   # Get data of todo
   describe "GET /todo/:id" do
-
     context "id is valid =>" do
       let(:todo_test) { todos.first }
       before { get '/todo/' + todo_id }

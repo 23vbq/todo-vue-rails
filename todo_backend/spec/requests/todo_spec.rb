@@ -31,8 +31,8 @@ RSpec.describe "Todos", type: :request do
         expect(json['status']).to eq(todo_test[:status])
         expect(json['group_id']).to eq(todo_test[:group_id])
         expect(json['priority']).to eq(todo_test[:priority])
-        expect(json['date_creation']).to eq(todo_test[:date_creation])
-        expect(json['date_planning']).to eq(todo_test[:date_planning])
+        expect(json['date_creation']).to eq(todo_test[:date_creation].utc.iso8601(3))
+        expect(json['date_planning']).to eq(todo_test[:date_planning].utc.iso8601(3))
         expect(json['title']).to eq(todo_test[:title])
         expect(json['description']).to eq(todo_test[:description])
       end
@@ -45,12 +45,13 @@ RSpec.describe "Todos", type: :request do
     context "id is invalid =>" do
       before { get '/todo/-1' }
 
-      it "not returning data" do
-        expect(response.body).to be_empty
+      it "returns cannot find" do
+        expect(response.body)
+          .to match("{\"message\":\"Couldn't find ToDo with 'id'=" + (-1).to_s + "\"}")
       end
 
-      it "returns status code 204" do
-        expect(response).to have_http_status(204)
+      it "returns status code 404" do
+        expect(response).to have_http_status(404)
       end
     end
   end

@@ -6,6 +6,55 @@ RSpec.describe "Todos", type: :request do
   let!(:todos) { create_list(:to_do, 10) }
   let(:todo_id) { todos.first.id.to_s }
 
+  # Get list of todos
+  describe "GET /todo?group_id" do
+
+    it "returns properly count each group" do
+      @groups = ToDo.group(:group_id).count
+      @groups.each do |key, value|
+        get '/todo?group_id=' + key.to_s
+        expect(json).not_to be_empty
+        expect(json.size).to eq(value)
+        expect(response).to have_http_status(200)
+      end
+    end
+  end
+
+  # Get data of todo
+  describe "GET /todo/:id" do
+
+    context "id is valid =>" do
+      let(:todo_test) { todos.first }
+      before { get '/todo/' + todo_id }
+
+      it "returns data" do
+        expect(json['status']).to eq(todo_test[:status])
+        expect(json['group_id']).to eq(todo_test[:group_id])
+        expect(json['priority']).to eq(todo_test[:priority])
+        expect(json['date_creation']).to eq(todo_test[:date_creation])
+        expect(json['date_planning']).to eq(todo_test[:date_planning])
+        expect(json['title']).to eq(todo_test[:title])
+        expect(json['description']).to eq(todo_test[:description])
+      end
+
+      it "returns status code 200" do
+        expect(response).to have_http_status(200)
+      end
+    end
+
+    context "id is invalid =>" do
+      before { get '/todo/-1' }
+
+      it "not returning data" do
+        expect(response.body).to be_empty
+      end
+
+      it "returns status code 204" do
+        expect(response).to have_http_status(204)
+      end
+    end
+  end
+
   # Create new todo
   describe "POST /todo" do
     let(:valid_attributes) {

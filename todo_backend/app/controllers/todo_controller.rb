@@ -1,10 +1,15 @@
 class TodoController < ApplicationController
-before_action :set_todo, only: [ :update, :destroy ]
+before_action :set_todo, only: [ :show, :update, :destroy ]
 
   # GET /todo?group_id
   def index
     @todos = ToDo.where(group_id: todo_params_index[:group_id]).select(:id, :title, :priority, :date_planning)
     json_response(@todos)
+  end
+
+  # GET /todo/:id
+  def show
+    json_response(@todo)
   end
 
   # POST /todo

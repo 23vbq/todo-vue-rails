@@ -55,8 +55,8 @@ RSpec.describe "Attachments", type: :request do
     let(:valid_attributes) {
       {
         to_do_id: todo_id,
-        name: { Faker::Lorem.sentence(word_count: 1, random_words_to_add: 4) },
-        data: { Faker::String.random(length: 16..512) }
+        name: Faker::Lorem.sentence(word_count: 1, random_words_to_add: 4),
+        data: Faker::String.random(length: 16..512)
       }
     }
 

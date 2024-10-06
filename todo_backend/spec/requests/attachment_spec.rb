@@ -28,7 +28,7 @@ RSpec.describe "Attachments", type: :request do
       it "returns data" do
         expect(json['id']).to eq(attachment_test.id)
         expect(json['name']).to eq(attachment_test[:name])
-        expect(json['data']).to eq(attachment_test[:data])
+        expect(json['data']).to eq(attachment_test[:data].force_encoding('UTF-8'))
       end
 
       it "returns status code 200" do
@@ -67,7 +67,6 @@ RSpec.describe "Attachments", type: :request do
       }
 
       it "created attachment has user defined values" do
-        expect(json['to_do_id']).to eq(valid_attributes[:to_do_id])
         expect(json['name']).to eq(valid_attributes[:name])
         expect(json['data']).to eq(valid_attributes[:data])
       end

@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  web:
+    depends_on:
+      - db
+    build:
+      context: ./
+      dockerfile: Dockerfile-dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app/todo_backend
+    networks:
+      - todo_net
+    environment:
+      DATABASE_ADDR: "db"
+    command: rails s -b 0.0.0.0 -p 3000
+
+  db:
+    image: mysql:8.0
+    platform: linux/amd64
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpasswd
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - todo_net
+
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - "40001:80"
+    environment:
+      PMA_HOST: db
+      UPLOAD_LIMIT: 102400K
+      MAX_EXECUTION_TIME: 6000
+    networks:
+      - todo_net
+
+volumes:
+  db_data:
+
+networks:
+  todo_net:

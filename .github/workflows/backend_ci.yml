@@ -3,6 +3,9 @@ name: Backend_CI
 on:
   pull_request:
   push:
+    paths:
+      - 'todo_backend/*'
+      - '.github/workflows/backend_ci.yml'
 
 jobs:
   scan_ruby:

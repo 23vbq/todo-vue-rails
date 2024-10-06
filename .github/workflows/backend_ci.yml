@@ -2,6 +2,9 @@ name: Backend_CI
 
 on:
   pull_request:
+    paths:
+      - 'todo_backend/*'
+      - '.github/workflows/backend_ci.yml'
   push:
     paths:
       - 'todo_backend/*'

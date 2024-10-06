@@ -106,7 +106,7 @@ RSpec.describe "Attachments", type: :request do
 
     context "record exists" do
       before {
-        @attachments_count = Attachment.count;
+        @attachments_count = Attachment.count
         put '/attachment/' + attachment_id, params: valid_attributes
       }
 

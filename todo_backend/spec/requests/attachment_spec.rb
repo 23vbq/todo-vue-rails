@@ -96,4 +96,49 @@ RSpec.describe "Attachments", type: :request do
       end
     end
   end
+
+  # Update existing attachment
+  describe "PUT /attachment/:id" do
+    let(:valid_attributes) {
+      {
+        name: Faker::Lorem.sentence(word_count: 1, random_words_to_add: 4)
+      }
+    }
+
+    context "record exists" do
+      before {
+        @attachments_count = Attachment.count;
+        put '/attachment/' + attachment_id, params: valid_attributes
+      }
+
+      it "updates record" do
+        expect(response.body).to be_empty
+        expect(Attachment.find(attachment_id).name).to eq(valid_attributes[:name])
+      end
+
+      it "same count of records" do
+        expect(Attachment.count).to eq(@attachments_count)
+      end
+
+      it "returns status code 204" do
+        expect(response).to have_http_status(204)
+      end
+    end
+  end
+
+  # Delete attachment
+  describe "DELETE /attachment/:id" do
+    before {
+      @attachments_count = Attachment.count
+      delete '/attachment/' + attachment_id
+    }
+
+    it "returns status code 204" do
+      expect(response).to have_http_status(204)
+    end
+
+    it "changes count of records" do
+      expect(Attachment.count).to eq(@attachments_count - 1)
+    end
+  end
 end

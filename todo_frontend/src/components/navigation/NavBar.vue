@@ -6,7 +6,7 @@ import Group from './Group.vue';
 
 <template>
   <div class="flex flex-col w-3xs min-h-screen border-r-2 border-gray-400">
-    <header class="p-4 bg-orange-300 text-white text-xl font-bold">
+    <header class="px-4 py-2 bg-orange-300 text-white text-2xl font-bold">
       ToDo
     </header>
 

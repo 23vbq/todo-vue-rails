@@ -10,7 +10,7 @@ import Group from './Group.vue';
       ToDo
     </header>
 
-    <div class="flex flex-col px-3 flex-1 px-3 py-2">
+    <div class="flex flex-col flex-1 px-3 py-2">
       <h1 class="text-gray-900 font-semibold px-2 pb-2 border-b border-gray-400">Groups</h1>
       <ul>
         <Group name="Group 1" color="red" active="true"></Group>

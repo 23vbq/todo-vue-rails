@@ -4,10 +4,10 @@ import MainView from './components/main/MainView.vue';
 </script>
 
 <template>
-  <nav>
+<nav>
     <NavBar></NavBar>
-  </nav>
-  <main class="w-full">
+</nav>
+<main class="w-full">
     <MainView></MainView>
-  </main>
+</main>
 </template>

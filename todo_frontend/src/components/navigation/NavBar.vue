@@ -4,19 +4,19 @@ import IconSettings from '../icons/IconSettings.vue';
 import Group from './Group.vue';
 
 const groups = [
-  {
-    name: 'Group 1',
-    color: 'red',
-    active: true,
-  },
-  {
-    name: 'Group 2',
-    color: '#13ad75',
-    active: false,
-  },
-  {
-    name: 'Group 1',
-  },
+    {
+        name: 'Group 1',
+        color: 'red',
+        active: true,
+    },
+    {
+        name: 'Group 2',
+        color: '#13ad75',
+        active: false,
+    },
+    {
+        name: 'Group 1',
+    },
 ]
 </script>
 
@@ -27,15 +27,15 @@ const groups = [
     </header>
 
     <div class="flex flex-col flex-1 px-3 py-2">
-      <h1 class="text-gray-900 font-semibold px-2 pb-2 border-b border-gray-400">Groups</h1>
-      <ul>
-        <Group v-for="group in groups" :name="group.name" :color="group.color" :active="group.active"/>
-      </ul>
+        <h1 class="text-gray-900 font-semibold px-2 pb-2 border-b border-gray-400">Groups</h1>
+        <ul>
+            <Group v-for="group in groups" :name="group.name" :color="group.color" :active="group.active"/>
+        </ul>
 
-      <button class="flex items-center mt-auto w-full gap-3 px-3 py-2 font-semibold rounded cursor-pointer transition duration-75 hover:bg-gray-300 hover:text-black">
-        <div class="w-4"><IconSettings></IconSettings></div>
-        Settings
-      </button>
+        <button class="flex items-center mt-auto w-full gap-3 px-3 py-2 font-semibold rounded cursor-pointer transition duration-75 hover:bg-gray-300 hover:text-black">
+            <div class="w-4"><IconSettings></IconSettings></div>
+            Settings
+        </button>
     </div>
 
   </div>

@@ -9,4 +9,5 @@
   @apply text-gray-800;
   @apply select-none;
   @apply overflow-hidden;
+  @apply antialiased;
 }

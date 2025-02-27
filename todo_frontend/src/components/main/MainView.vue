@@ -59,7 +59,7 @@ const cards = [
 </script>
 <template>
     <div class="flex flex-col w-full h-full px-6">
-        <Header :group-name="selectedGroup.value?.name ?? 'test'"></Header>
+        <Header :group-name="selectedGroup.value?.name"></Header>
 
         <div class="flex flex-wrap content-start gap-4 w-full flex-1 py-4">
             <Card v-for="card in cards" :title="card.title" :date="card.date" :status="card.status">

@@ -11,7 +11,7 @@ defineProps({
         required: false,
     },
     active: {
-        type: Boolean,
+        type: Object,
         required: false,
     },
 })
@@ -20,7 +20,7 @@ defineProps({
 <template>
     <li
         class="w-full mt-1 p-1 flex items-center text-sm rounded cursor-pointer transition duration-75 hover:bg-gray-200"
-        :class="active ? 'text-black font-medium' : null"
+        :class="active?.value ? 'text-black font-medium' : null"
     >
         <div class="w-4 mr-2" :style="color ? {'color': color} : null"><IconDot></IconDot></div>
         {{ name }}

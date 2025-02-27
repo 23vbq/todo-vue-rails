@@ -2,6 +2,13 @@
 import Header from './Header.vue';
 import Card from '../todo/Card.vue';
 
+defineProps({
+    selectedGroup: {
+        type: Object,
+        required: true,
+    }
+})
+
 const cards = [
     {
         title: 'Title',
@@ -52,7 +59,7 @@ const cards = [
 </script>
 <template>
     <div class="flex flex-col w-full h-full px-6">
-        <Header group-name="Group 1"></Header>
+        <Header :group-name="selectedGroup.value?.name ?? 'test'"></Header>
 
         <div class="flex flex-wrap content-start gap-4 w-full flex-1 py-4">
             <Card v-for="card in cards" :title="card.title" :date="card.date" :status="card.status">

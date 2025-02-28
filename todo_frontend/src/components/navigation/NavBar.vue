@@ -1,8 +1,11 @@
 <script setup>
 import { ref } from 'vue';
+
 import IconSettings from '../icons/IconSettings.vue';
+import IconAdd from '../icons/IconAdd.vue';
 
 import Group from './Group.vue';
+import GroupModal from '../modals/GroupModal.vue';
 
 const props = defineProps({
     selectedGroup: {
@@ -37,6 +40,8 @@ const selectGroup = (toSelect) => {
     toSelect.active.value = true;
     props.selectedGroup.value = toSelect;
 }
+
+let showGroupModal = ref(false);
 </script>
 
 <template>
@@ -46,7 +51,13 @@ const selectGroup = (toSelect) => {
     </header>
 
     <div class="flex flex-col flex-1 px-3 py-2">
-        <h1 class="text-gray-900 font-semibold px-2 pb-2 border-b border-gray-400">Groups</h1>
+        <div class="flex items-center font-semibold px-2 pb-1 border-b border-gray-400">
+            <h1 class="text-gray-900">Groups</h1>
+            <button
+                @click="showGroupModal = true"
+                class="ml-auto w-3 text-gray-600 cursor-pointer transition duration-75 hover:text-black"
+            ><IconAdd/></button>
+        </div>
         <ul>
             <Group
                 v-for="group in groups"
@@ -64,4 +75,5 @@ const selectGroup = (toSelect) => {
     </div>
 
   </div>
+  <GroupModal v-if="showGroupModal" @close="showGroupModal = false"/>
 </template>

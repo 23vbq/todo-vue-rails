@@ -1,6 +1,7 @@
 <script setup>
 import Header from './Header.vue';
 import Card from '../todo/Card.vue';
+import TaskModal from '../todo/TaskModal.vue';
 
 defineProps({
     selectedGroup: {
@@ -67,4 +68,7 @@ const cards = [
             </Card>
         </div>
     </div>
+    <TaskModal
+        :task="cards[0]"
+    />
 </template>

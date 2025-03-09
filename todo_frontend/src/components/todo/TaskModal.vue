@@ -1,6 +1,7 @@
 <script setup>
 import IconAdd from '../icons/IconAdd.vue';
 import IconClock from '../icons/IconClock.vue';
+import IconEdit from '../icons/IconEdit.vue';
 
 const props = defineProps({
     task: {
@@ -35,23 +36,26 @@ const saveTask = () => {
                 <h1
                     id="task-modal-title"
                     class="text-2xl px-3 pb-1 font-semibold w-1/2 rounded-md border-b border-white
-                    transition duration-75 focus:outline-0 focus:text-black focus:border-gray-900" 
+                    transition duration-75 hover:bg-gray-100 focus:outline-0 focus:text-black focus:border-gray-900" 
                     contenteditable="true" spellcheck="false"
                     @keyup="saveTask()"
                 >{{ task?.title }}</h1>
                 <button @click="$emit('close')" class="ml-auto p-1 rounded-md cursor-pointer transition duration-75 hover:text-black hover:bg-gray-200"><IconAdd class="w-4 rotate-45"/></button>
             </div>
             <!-- Date -->
-            <div class="flex items-center gap-2 px-3 pb-1 text-lg" :class="cardState == 'overdue' && 'text-red-600'">
+            <div class="w-fit flex items-center gap-2 px-3 pb-1 text-lg rounded transition duration-75 hover:bg-gray-100 group" :class="cardState == 'overdue' && 'text-red-600'">
                 <div class="w-4"><IconClock></IconClock></div>
                 <span class="py-1" :class="cardState == 'overdue' ? 'font-bold' : 'font-medium'">{{ task?.date ? formatDate(task.date) : '' }}</span>
+                <button
+                    class="w-5 h-5 flex items-center justify-center opacity-0 rounded cursor-pointer
+                    transition duration-100 group-hover:opacity-100 hover:text-black"
+                ><IconEdit class="w-4"/></button>
             </div>
-            <!-- <hr class="border-b border-gray-300"> -->
             <!-- Description -->
             <div
                 id="task-modal-description"
                 class="my-2 px-3 py-2 min-h-40 text-justify border-b border-gray-400 rounded-md
-                transition duration-75 focus:outline-0 focus:text-black focus:border-gray-900"
+                transition duration-75 focus:outline-0 hover:bg-gray-100 focus:text-black focus:border-gray-900"
                 contenteditable="true"
                 spellcheck="false"
                 @keyup="saveTask()"

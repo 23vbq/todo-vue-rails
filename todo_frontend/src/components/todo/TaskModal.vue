@@ -29,13 +29,13 @@ const formatDate = (date) => {
                     class="text-2xl px-3 pb-1 font-semibold w-1/2 rounded-md border-b border-white
                     transition duration-75 focus:outline-0 focus:text-black focus:border-gray-900" 
                     contenteditable="true" spellcheck="false"
-                >{{ task.title }}</h1>
+                >{{ task?.title }}</h1>
                 <button @click="$emit('close')" class="ml-auto p-1 rounded-md cursor-pointer transition duration-75 hover:text-black hover:bg-gray-200"><IconAdd class="w-4 rotate-45"/></button>
             </div>
             <!-- Date -->
             <div class="flex items-center gap-2 px-3 pb-1 text-lg" :class="cardState == 'overdue' && 'text-red-600'">
                 <div class="w-4"><IconClock></IconClock></div>
-                <span class="py-1" :class="cardState == 'overdue' ? 'font-bold' : 'font-medium'">{{ formatDate(task.date) }}</span>
+                <span class="py-1" :class="cardState == 'overdue' ? 'font-bold' : 'font-medium'">{{ task?.date ? formatDate(task.date) : '' }}</span>
             </div>
             <!-- <hr class="border-b border-gray-300"> -->
             <!-- Description -->
@@ -45,7 +45,7 @@ const formatDate = (date) => {
                 contenteditable="true"
                 spellcheck="false"
             >
-                {{ task.description }}
+                {{ task?.description }}
             </div>
             <!-- Button -->
             <!-- <div class="py-1 flex items-center justify-end gap-4">

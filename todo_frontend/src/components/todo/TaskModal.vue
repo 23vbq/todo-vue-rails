@@ -1,4 +1,9 @@
 <script setup>
+import { onMounted } from 'vue';
+
+import { Calendar } from 'vanilla-calendar-pro';
+import 'vanilla-calendar-pro/styles/index.css';
+
 import IconAdd from '../icons/IconAdd.vue';
 import IconClock from '../icons/IconClock.vue';
 import IconEdit from '../icons/IconEdit.vue';
@@ -10,16 +15,44 @@ const props = defineProps({
     }
 });
 
+let taskDateCalendar;
+
+onMounted(() => {
+    taskDateCalendar = new Calendar('#task-modal-date', {
+        inputMode: true,
+        selectionTimeMode: 24,
+        positionToInput: 'auto',
+        styles: {
+            calendar: 'vc z-30',
+        },
+        selectedTheme: 'light',
+        onChangeToInput(self) {
+            if (!self.context.inputElement) return;
+            if (self.context.selectedDates[0]) {
+                self.context.inputElement.value = self.context.selectedDates[0] + ' ' + self.context.selectedTime;
+                self.hide();
+            } else {
+                self.context.inputElement.value = '';
+            }
+            saveTask();
+        },
+    });
+    // taskDateCalendar.set();
+    taskDateCalendar.init();
+});
+
 const formatDate = (date) => {
     return `${String(date.getDate()).padStart(2, '0')}.${String(date.getMonth() + 1).padStart(2, '0')}.${date.getFullYear()} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`
 }
 
 const saveTask = () => {
     const title = document.getElementById('task-modal-title').innerHTML;
+    const date = document.getElementById('task-modal-date').value;
     const description = document.getElementById('task-modal-description').innerHTML;
 
     props.task.title = title;
     props.task.description = description;
+    console.log(date);
 }
 </script>
 
@@ -47,9 +80,16 @@ const saveTask = () => {
                 <div class="w-4"><IconClock></IconClock></div>
                 <span class="py-1" :class="cardState == 'overdue' ? 'font-bold' : 'font-medium'">{{ task?.date ? formatDate(task.date) : '' }}</span>
                 <button
+                    @click="taskDateCalendar.show()"
                     class="w-5 h-5 flex items-center justify-center opacity-0 rounded cursor-pointer
                     transition duration-100 group-hover:opacity-100 hover:text-black"
                 ><IconEdit class="w-4"/></button>
+                <input
+                    id="task-modal-date"
+                    type="text"
+                    class="opacity-0 w-0 pointer-events-none"
+                    :value="task?.date"
+                />
             </div>
             <!-- Description -->
             <div

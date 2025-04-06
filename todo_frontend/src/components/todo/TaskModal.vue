@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted } from 'vue';
+import { onBeforeUnmount, onMounted } from 'vue';
 
 import { Calendar } from 'vanilla-calendar-pro';
 import 'vanilla-calendar-pro/styles/index.css';
@@ -17,28 +17,61 @@ const props = defineProps({
 
 let taskDateCalendar;
 
+const getCardState = () => {
+    if (props.status == 1) {
+        return 'finished';
+    }
+    if (props.status == 0) {
+        const currentDate = new Date();
+        if (props.date < currentDate) {
+            return 'overdue';
+        }
+        return 'normal';
+    }
+}
+
+const cardState = getCardState();
+
 onMounted(() => {
+    const selectedDate = props.task.date;
+    const inputPos = document.getElementById('task-modal-date').getBoundingClientRect();
+
     taskDateCalendar = new Calendar('#task-modal-date', {
         inputMode: true,
         selectionTimeMode: 24,
-        positionToInput: 'auto',
+        positionToInput: 'center',
         styles: {
             calendar: 'vc z-30',
         },
         selectedTheme: 'light',
-        onChangeToInput(self) {
+        selectedMonth: selectedDate.getMonth(),
+        selectedYear: selectedDate.getFullYear(),
+        selectedDates: [selectedDate],
+        selectedTime: selectedDate.getHours() + ':' + selectedDate.getMinutes(),
+        onShow(self) {
             if (!self.context.inputElement) return;
-            if (self.context.selectedDates[0]) {
+            self.context.mainElement.style.left = inputPos.x + 'px';
+            self.context.mainElement.style.top = inputPos.y + 'px';
+        },
+        onHide(self) {
+            if (!self.context.inputElement) {
+                console.error('Input element not found');
+                return;
+            }
+            if (self.context.selectedDates[0] && self.context.selectedTime) {
                 self.context.inputElement.value = self.context.selectedDates[0] + ' ' + self.context.selectedTime;
-                self.hide();
             } else {
                 self.context.inputElement.value = '';
             }
             saveTask();
         },
     });
-    // taskDateCalendar.set();
     taskDateCalendar.init();
+});
+
+onBeforeUnmount(() => {
+    taskDateCalendar.hide();
+    taskDateCalendar.destroy();
 });
 
 const formatDate = (date) => {
@@ -52,7 +85,7 @@ const saveTask = () => {
 
     props.task.title = title;
     props.task.description = description;
-    console.log(date);
+    props.task.date = new Date(date);
 }
 </script>
 

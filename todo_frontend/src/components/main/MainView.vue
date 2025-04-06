@@ -1,6 +1,15 @@
 <script setup>
+import { ref } from 'vue';
 import Header from './Header.vue';
 import Card from '../todo/Card.vue';
+import TaskModal from '../todo/TaskModal.vue';
+
+defineProps({
+    selectedGroup: {
+        type: Object,
+        required: true,
+    }
+})
 
 const cards = [
     {
@@ -49,15 +58,41 @@ const cards = [
         `,
     },
 ]
+
+let taskModal = ref({
+    task: null,
+    isVisible: false
+});
+
+const newTask = () => {
+    taskModal.value.task = null;
+    taskModal.value.isVisible = true;
+}
+
+const editTask = (task) => {
+    taskModal.value.task = task;
+    taskModal.value.isVisible = true;
+}
 </script>
 <template>
     <div class="flex flex-col w-full h-full px-6">
-        <Header group-name="Group 1"></Header>
+        <Header :group-name="selectedGroup.value?.name" :new-task-callback="newTask"></Header>
 
         <div class="flex flex-wrap content-start gap-4 w-full flex-1 py-4">
-            <Card v-for="card in cards" :title="card.title" :date="card.date" :status="card.status">
+            <Card
+                v-for="card in cards"
+                :title="card.title"
+                :date="card.date"
+                :status="card.status"
+                @click="editTask(card)"
+            >
                 {{ card.description }}
             </Card>
         </div>
     </div>
+    <TaskModal
+        v-if="taskModal.isVisible"
+        :task="taskModal.task"
+        @close="taskModal.isVisible = false"
+    />
 </template>
